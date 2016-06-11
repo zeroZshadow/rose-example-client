@@ -70,10 +70,22 @@ public partial class MasterServer {
 
 	private static void HandleListRoomsResponse(CodedInputStream stream) {
 		Pb.ListRoomsResponse list = Pb.ListRoomsResponse.Parser.ParseFrom(stream);
+		Pb.RoomInfo first = null;
 
-		foreach (Pb.RoomInfo room in list.Rooms)
-		{
+		if (list.Rooms.Count == 0) {
+			Debug.Log("No rooms found, creating one");
+			MasterServer.CreateRoomRequest(list.Region);
+			return;
+		}
+
+		foreach (Pb.RoomInfo room in list.Rooms) {
+			if (first == null) {
+				first = room;
+			}
 			Debug.LogFormat("Room {0}: {1}", room.Id, room.Name);
 		}
+
+		// DEBUG Join that first room
+		MasterServer.JoinRoomRequest(first.Id);
 	}
 }

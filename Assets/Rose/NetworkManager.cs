@@ -57,6 +57,8 @@ public class NetworkManager : MonoBehaviour {
 		// Send a room message
 		if (MasterServer.Connected()) {
 			// TODO This is where you should send a login
+			// DEBUG Lets find some rooms
+			MasterServer.ListRoomsRequest(config.region);
 		} else {
 			Debug.LogWarning("Not connected to master server");
 		}
@@ -76,7 +78,6 @@ public class NetworkManager : MonoBehaviour {
 		}
 
 		if (ws != null) {
-
 			// Start message pump
 			MessagePump master = new MessagePump(ws);
 			MasterServer.Setup(master, this);

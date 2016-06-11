@@ -33,5 +33,6 @@ public partial class GameServer {
 		Pb.ChatMessage chat = Pb.ChatMessage.Parser.ParseFrom(stream);
 
 		Debug.LogFormat("Chat message: {0}", chat.Message);
+		Chat.instance.AddChat(chat.Message);
 	}
 }
