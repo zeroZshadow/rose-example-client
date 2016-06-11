@@ -1,0 +1,3 @@
+[submodule "Assets/Messages"]
+	path = Assets/Messages
+	url = https://github.com/zeroZshadow/rose-example-messages.git
